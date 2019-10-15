@@ -1,0 +1,7 @@
+function refreshVotes(innerHTML) {
+  var newVotesDivMap = document.getElementById('fixpoint_votes_<%= @fixpoint.id %>');
+  newVotesDivMap.innerHTML = innerHTML;
+}
+
+
+refreshVotes('<%= j render "shared/votes", fixpoint: @fixpoint %>');

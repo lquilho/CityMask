@@ -1,0 +1,87 @@
+<div class="card_fix">
+  <div class="card">
+    <% if fixpoint.fixed? %>
+     <%= render 'fixpoints/images_fixed', fixpoint: fixpoint %>
+    <% else %>
+     <%= render 'fixpoints/images', fixpoint: fixpoint %>
+    <% end %>
+    <% if user_signed_in? %>
+    <div class="card-status <%= fixpoint.fixed ? 'background-fixed' : 'background-hazard' %>">
+      <% if current_user.admin? %>
+        <% if fixpoint.fixed? %>
+        <!-- Button to Open the Modal -->
+          <%= link_to set_fixed_fixpoint_path(fixpoint),style: '    padding-top: 5px;', method: :patch, remote: true do %>
+            <i class="far fa-check-square"></i>
+            Fixed!
+          <% end %>
+          <%= link_to '#', {data: { toggle: "modal", target: "#fixpoint_#{fixpoint.id}"}} do %>
+          <i class="fas fa-camera photo_icon"></i>
+          <% end %>
+        <% else %>
+          <%= link_to set_fixed_fixpoint_path(fixpoint),style: '    padding-top: 5px;', method: :patch,remote: true do %>
+            <button class="button-fixed" type="button" data-hover="Fix it!" data-active="I'M ACTIVE"><span>To fix</span></button>
+          <% end %>
+        <% end %>
+      <% else %>
+        <span><%= fixpoint.fixed ? 'Fixed' : 'Not fixed' %></span>
+      <% end %>
+    </div>
+    <% else %>
+    <div class="card-status-logout <%= fixpoint.fixed ? 'background-fixed' : 'background-hazard' %>">
+    </div>
+    <% end %>
+    <div class="card-body text-dark">
+      <div class="card-main-header">
+        <% if user_signed_in? %>
+        <% if fixpoint.user == current_user %>
+          <div class="user-avatar bg-primary">
+            <%= fixpoint.user.initials %>
+          </div>
+        <% else %>
+          <div class="user-avatar bg-secondary">
+            <%= fixpoint.user.initials %>
+          </div>
+        <% end %>
+        <% end %>
+        <div>
+          <p><%= fixpoint.address %></p>
+          <% if fixpoint.fixed? %>
+          <p><small class="text-muted">Fixed in <%= distance_of_time_in_words(fixpoint.updated_at-fixpoint.created_at) %></small></p>
+          <% else %>
+          <p><small class="text-muted">Created <%= time_ago_in_words(fixpoint.created_at) %> ago</small></p>
+          <% end %>
+        </div>
+      </div>
+      <div class="card-main-footer">
+        <div>
+          <% if fixpoint.aesthetics? %>
+            <span class="badge badge-primary"><%= fixpoint.category %></span>
+          <% end %>
+          <% if fixpoint.pollution? %>
+            <span class="badge badge-warning"><%= fixpoint.category %></span>
+          <% end %>
+          <% if fixpoint.hazard? %>
+            <span class="badge badge-danger"><%= fixpoint.category %></span>
+          <% end %>
+          <% if fixpoint.accessibility? %>
+            <span class="badge badge-success"><%= fixpoint.category %></span>
+          <% end %>
+        </div>
+        <% if user_signed_in? %>
+        <% unless current_user.admin? %>
+        <%= render "shared/votes", fixpoint: fixpoint %>
+        <% else %>
+        <div id="fixpoint_votes_<%= fixpoint.id %>" class="fixpoint-votes">
+        <i class="fas fa-thumbs-up"></i>
+        <span class="count">
+        <%= fixpoint.votes.count %>
+        </span>
+      </div>
+        <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<%= render 'photosmodal_info', fixpoint: fixpoint %>
+

@@ -1,0 +1,17 @@
+<div class="card-fixpoint">
+  <div class="card-photo" >
+    <% if fixpoint.fixpoint_attachments.present? %>
+      <%= cl_image_tag fixpoint.fixpoint_attachments.first.photo %>
+    <% else %>
+      <%= image_tag('http://res.cloudinary.com/domeafay4/image/upload/v1559217010/rb3iyntwumo23d0vnapt.jpg') %>
+    <% end %>
+    <p class="card-date">Created <%= time_ago_in_words(fixpoint.created_at) %> ago</p>
+  </div>
+  <div>
+    <h3 class="card-category"><%= fixpoint.category %></h2>
+    <h2 class="card-adress"><%= fixpoint.address %></h3>
+  <button type="button" class="btn btn-link"> <%= link_to "Add photos", new_fixpoint_fixpoint_attachment_path(fixpoint) %> </button>
+  <div id="votes-map">
+    <%= render "shared/votes", fixpoint: fixpoint %>
+  </div>
+</div>

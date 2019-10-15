@@ -1,0 +1,50 @@
+<!-- The Modal -->
+<div class="modal" id="fixpoint_new">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Add a new Fixpoint</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <p style="text-align: center;">We would love to see more info about that problem.
+        <br> So our professionals can get to work on solving the problem.</p>
+        <% @fixpoint = Fixpoint.new %>
+        <% @fixpoint_attachment = @fixpoint.fixpoint_attachments.build %>
+      <%= simple_form_for @fixpoint do |f| %>
+        <% if @fixpoint.errors.any? %>
+        <div id="error_explanation">
+         <div class="alert alert-error">
+           The form contains <%= pluralize(@fixpoint.errors.count, "error") %>.
+         </div>
+        <ul>
+         <% @fixpoint.errors.full_messages.each do |msg| %>
+          <li>* <%= msg %></li>
+         <% end %>
+       </ul>
+      </div>
+      <% end %>
+
+      <%= f.input :category, as: :select, collection: Fixpoint.categories.keys.to_a %>
+        <%= f.input :address %>
+
+      <%= f.simple_fields_for :fixpoint_attachments do |faf| %>
+        <%= faf.file_field :photo, multiple: true, name: "fixpoint_attachments[photo][]", label: "Photos" %>
+        <% end %>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      <%= f.button :submit,'Add Fixpoint', class: "btn-primary mb-2" %>
+      <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,18 @@
+<div id="fixpoint_votes_<%= fixpoint.id %>" class="fixpoint-votes">
+  <span class="count">
+    <%= fixpoint.votes.count %>
+  </span>
+  <% if user_signed_in? %>
+    <% if fixpoint.votes.where(user: current_user).any? %>
+      <%= link_to fixpoint_vote_path(fixpoint, fixpoint.votes.where(fixpoint: fixpoint, user: current_user).first), method: :delete, remote: true do %>
+        <i class="fas fa-thumbs-up"></i>
+      <% end %>
+    <% else %>
+      <%= link_to fixpoint_votes_path(fixpoint), method: :post, remote: true do %>
+        <i class="far fa-thumbs-up text-muted"></i>
+      <% end %>
+    <% end %>
+  <% else %>
+    <i class="far fa-thumbs-up text-muted"></i>
+  <% end %>
+</div>

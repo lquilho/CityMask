@@ -1,0 +1,216 @@
+#fixpoints-list {
+  .card {
+    margin-bottom: 30px;
+  }
+}
+
+.grid_card{
+  display:grid;
+}
+
+.header{
+  text-align: center;
+  font-weight: 300;
+}
+
+.card_fix {
+  font-size: 14px;
+
+  img {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .background-fixed{
+    background-color: #3CB371;
+
+  }
+
+  .photo_icon{
+    font-size:30px;
+    padding-top:3px;
+  }
+
+  .background-hazard{
+    background-color: #FF6347;
+  }
+
+  .card-status {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 10px;
+    color: white;
+    margin-bottom: 0;
+    min-height: 44px;
+
+    a {
+      color: white;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .card-status-logout {
+    display: flex;
+    justify-content: space-between;
+    padding: 3px 5px;
+    color: white;
+    margin-bottom: 0;
+
+    a {
+      color: white;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+
+  .card-body {
+    padding: 10px;
+  }
+
+  .card-main-header {
+    display: flex;
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  .card-main-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    align-items: flex-end;
+  }
+
+  .fixpoint-votes {
+    font-size: 20px;
+  }
+}
+
+.user-avatar {
+  color: #fff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  margin-right: 10px;
+  flex-basis: 40px;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+/* .button-fixed */
+
+.button-fixed {
+    display: inline-block;
+    position: relative;
+    padding-right: 15px;
+    padding-left: 15px;
+    overflow: hidden;
+    text-decoration: none;
+    font-size: 13px;
+    outline: none;
+    color: #FFF;
+    background: transparent;
+    margin-bottom: 5px;
+}
+
+.button-fixed span {
+    -webkit-transition: 0.6s;
+    -moz-transition: 0.6s;
+    -o-transition: 0.6s;
+    transition: 0.6s;
+    -webkit-transition-delay: 0.2s;
+    -moz-transition-delay: 0.2s;
+    -o-transition-delay: 0.2s;
+    transition-delay: 0.2s;
+}
+
+.button-fixed:before,
+.button-fixed:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    -webkit-transition: .4s,opacity .6s;
+    -moz-transition: .4s,opacity .6s;
+    -o-transition: .4s,opacity .6s;
+    transition: .4s,opacity .6s;
+}
+
+/* :before */
+
+.button-fixed:before {
+    content: attr(data-hover);
+    -webkit-transform: translate(-150%,0);
+    -moz-transform: translate(-150%,0);
+    -ms-transform: translate(-150%,0);
+    -o-transform: translate(-150%,0);
+    transform: translate(-150%,0);
+}
+
+/* :after */
+
+.button-fixed:after {
+    content: attr(data-active);
+    -webkit-transform: translate(150%,0);
+    -moz-transform: translate(150%,0);
+    -ms-transform: translate(150%,0);
+    -o-transform: translate(150%,0);
+    transform: translate(150%,0);
+}
+
+/* Span on :hover and :active */
+
+.button-fixed:hover span,
+.button-fixed:active span {
+    opacity: 0;
+    -webkit-transform: scale(0.3);
+    -moz-transform: scale(0.3);
+    -ms-transform: scale(0.3);
+    -o-transform: scale(0.3);
+    transform: scale(0.3);
+}
+
+/*
+    We show :before pseudo-element on :hover
+    and :after pseudo-element on :active
+*/
+
+.button-fixed:hover:before,
+.button-fixed:active:after {
+    opacity: 1;
+    -webkit-transform: translate(0,0);
+    -moz-transform: translate(0,0);
+    -ms-transform: translate(0,0);
+    -o-transform: translate(0,0);
+    transform: translate(0,0);
+    -webkit-transition-delay: .4s;
+    -moz-transition-delay: .4s;
+    -o-transition-delay: .4s;
+    transition-delay: .4s;
+}
+
+/*
+  We hide :before pseudo-element on :active
+*/
+
+.button-fixed:active:before {
+    -webkit-transform: translate(-150%,0);
+    -moz-transform: translate(-150%,0);
+    -ms-transform: translate(-150%,0);
+    -o-transform: translate(-150%,0);
+    transform: translate(-150%,0);
+    -webkit-transition-delay: 0s;
+    -moz-transition-delay: 0s;
+    -o-transition-delay: 0s;
+    transition-delay: 0s;
+}

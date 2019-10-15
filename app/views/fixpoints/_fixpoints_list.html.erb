@@ -1,0 +1,28 @@
+<div id="fixpoints-list" class="container">
+  <div class="header">
+    <% if params[:filter] == "my-fixes" %>
+    <h1>My fixpoints</h1>
+    <% elsif params[:filter] == "all" %>
+    <h1>All fixpoints</h1>
+    <% elsif params[:filter] == "not-fixed" %>
+    <h1>To Fix</h1>
+    <% elsif params[:filter] == "fixed" %>
+    <h1>Fixed</h1>
+    <% else %>
+    <h1>No fixpoints</h1>
+    <% end %>
+  <hr>
+  </div>
+  <div class="row">
+    <% if !@fixpoints.empty? %>
+      <% fixpoints.each do |fixpoint| %>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+          <%= render 'fixpoints/card', fixpoint: fixpoint %>
+          <%= render 'photosmodal', fixpoint: fixpoint %>
+        </div>
+      <% end %>
+    <% else %>
+      <h1>No fixpoints</h1>
+    <% end %>
+  </div>
+</div>

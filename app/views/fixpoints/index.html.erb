@@ -1,0 +1,30 @@
+<%#= render 'fixpoints_list', fixpoints: @fixpoints %>
+
+<%#= render "map" %>
+
+
+<% if params[:view] == 'list' %>
+  <%= render 'fixpoints_list', fixpoints: @fixpoints %>
+<% else %>
+  <%= render "map" %>
+<% end %>
+
+<div class="plus_button">
+  <%= link_to "+", '#', {data: { toggle: "modal", target: "#fixpoint_new"}}%>
+</div>
+
+<div class="toggle_button">
+  <%= link_to toggle_link, id: "toggle-list" do %>
+    <% if params[:view] == 'list' %>
+      <i class="fas fa-toggle-off"></i>
+    <% else %>
+      <i class="fas fa-toggle-on"></i>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="b">
+  <%= render 'shared/sidebar' %>
+</div>
+
+<%= render 'modal_new' %>

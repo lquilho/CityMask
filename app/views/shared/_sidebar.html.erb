@@ -1,0 +1,86 @@
+<!-- Sidebar -->
+<div class="sidebar w3-sidebar w3-bar-block w3-border-right" style="overflow-y: scroll; display: <%= params[:sidebar] ? "flex" : "none" %>;" id="mySidebar">
+  <div class="sidebar-inner-container">
+    <div>
+      <button type="button" class="close" aria-label="Close" onclick="sidebarClose()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <% if user_signed_in? %>
+      <div class="user-avatar bg-primary">
+        <%= current_user.initials %>
+      </div>
+
+      <% end %>
+    </div>
+    <div class="sidebar-title">
+      <h2>City Makeover</h2>
+    </div>
+    <div class="form">
+      <div class="form-check">
+        <label class="form-check-label">
+          <%= radio_button_tag :filter, 'all', params[:filter] == 'all', class: 'sidebar-radio' %>
+          All
+        </label>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <%= radio_button_tag :filter, 'fixed', params[:filter] == 'fixed', class: 'sidebar-radio' %>
+          Fixed
+        </label>
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <%= radio_button_tag :filter, 'not-fixed', params[:filter] == 'not-fixed', class: 'sidebar-radio' %>
+          Not fixed
+        </label>
+      </div>
+      <% if user_signed_in? %>
+      <div class="form-check">
+        <label class="form-check-label">
+          <%= radio_button_tag :filter, 'my-fixes', params[:filter] == 'my-fixes', class: 'sidebar-radio' %>
+          My fixes
+        </label>
+      </div>
+      <% end %>
+    </div>
+    <div class="bottom-area">
+      <% if user_signed_in? %>
+        <%= link_to destroy_user_session_path, method: :delete, class: 'login-btn btn btn-primary btn-lg btn-block' do %>
+          Logout
+        <% end %>
+      <% else %>
+        <%= link_to new_user_session_path, class: "login-btn btn btn-primary btn-lg btn-block" do %>
+          Login
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<button class="sidebar-burger btn btn-primary" id="burger" onclick="sidebarOpen()" style="display: <%= params[:sidebar] ? "none" : "block" %>;">
+  <i class="fas fa-bars"></i>
+</button>
+<script>
+  function sidebarOpen() {
+    document.getElementById("mySidebar").style.display = "flex";
+    document.getElementById("burger").style.display = "none";
+  }
+
+  function sidebarClose() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("burger").style.display = "block";
+  }
+
+  (function() {
+    var radios = document.getElementsByClassName('sidebar-radio');
+
+    Array.prototype.forEach.call(radios, function(radio){
+      radio.addEventListener('click', () => {
+        var searchParams = new URLSearchParams(window.location.search);
+        searchParams.set('filter', radio.value);
+        searchParams.set('sidebar', true);
+        window.location.search = searchParams.toString();
+        sidebarOpen();
+      })
+    });
+  })();
+</script>

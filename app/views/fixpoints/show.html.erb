@@ -1,0 +1,60 @@
+<h1><%= @fixpoint %></h1>
+<div>
+  <div class="img">
+    <%= image_tag ("photos/garbage1.jpeg")%><br>
+    <% @fixpoint.created_at %> Created <%= time_ago_in_words(Date.today) %> ago
+  </div>
+  <div class="card-body">
+    <p>
+      <%= @fixpoint.category %>
+      <br>
+      <%= @fixpoint.latitude %><%= @fixpoint.longitude %>
+      <br>
+    </p>
+  </div>
+</div>
+<%= link_to 'Back' %>
+<% if @fixpoint.fixpoint_attachments.any? %>
+  <div class="bd-example">
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <%= image_tag @fixpoint.fixpoint_attachments.first.photo_url %>
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Before fix</h5>
+            <p>Taken ... ago</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <%= image_tag @fixpoint.fixpoint_attachments.first.photo_url %>
+          <div class="carousel-caption d-none d-md-block">
+            <h5>After fix</h5>
+            <p><% @fixpoint.fixpoint_attachments.first.created_at %> Created <%= time_ago_in_words(Date.today) %> ago</p>
+          </div>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+<% end %>
+<%# This is the COUNTER! %>
+<h2><%= @fixpoint.fixpoint_attachments.count %></h2>
+<%# This creats the 'ADD PHOTO' link %>
+<%= link_to "Add photo", new_fixpoint_fixpoint_attachment_path(@fixpoint) %>
+
+<% @fixpoint.fixpoint_attachments.each do |fp_attch| %>
+  <%= cl_image_tag fp_attch.photo, height: 300, width: 400, crop: :fill %>
+  <%= link_to "change photo", edit_fixpoint_fixpoint_attachment_path(fp_attch.fixpoint, fp_attch) %>
+  <%= link_to "delete photo", fixpoint_fixpoint_attachment_path(fp_attch.fixpoint, fp_attch), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <% end %>

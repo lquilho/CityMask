@@ -1,0 +1,20 @@
+.home-card {
+  text-align: center;
+  padding: 30px;
+
+  h1 {
+    display: inline-block;
+    color: $primary;
+  }
+
+  h4 {
+    font-weight: 400;
+    margin: 0px 0 20px 0;
+    color: $primary;
+  }
+
+  p {
+    font-size: 17px;
+    font-weight: lighter;
+  }
+}
